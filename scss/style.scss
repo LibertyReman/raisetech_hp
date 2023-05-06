@@ -1,20 +1,28 @@
 // variables
 $dbg: 0;
+$header-height: 70px;
+$color-white: #FFFF;
+$color-blue: #2498B3;
 
 // mixin
-@mixin dbg-border($color: blue, $dbg: 1) {
-  @if ($dbg == 1) {
-    outline: 1px solid $color;
-    outline-offset: -1px;
+@mixin dbg-border($color: blue, $px: 1, $switch: 1) {
+  @if ($switch == 1 and $dbg == 1) {
+    outline: #{$px}px solid $color;
+    outline-offset: -#{$px}px;
   }
 }
 
-@mixin dbg-bgcolor($color: blue, $dbg: 1) {
-  @if ($dbg == 1) {
+@mixin dbg-bgcolor($color: blue, $switch: 1) {
+  @if ($switch == 1 and $dbg == 1) {
     background-color: $color;
   }
 }
 
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+}
 
 a {
   color: inherit; // 親のスタイルを継承
@@ -25,8 +33,66 @@ li {
   list-style: none; // 点(・)を削除
 }
 
-img {
-  width: 100%; // 親要素の横幅に合わせる imgタグはインライン要素だが特別にサイズ指定できる
+
+header {
+  @include dbg-border(red, 3, 1);
+  display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
+  flex-direction: row; // 子要素の並ぶ向きを左からに設定
+  justify-content: space-between; // 子要素の横並びの置く位置を設定
+
+}
+
+.header-left {
+  margin-left: 21px;
+
+  a {
+    height: $header-height;
+    display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
+    flex-direction: row; // 子要素の並ぶ向きを左からに設定
+    align-items: center; // flex-direction: rowなので子要素のタテの間隔や置く位置を設定
+
+    img {
+      height: 33px; // imgタグはインライン要素だが例外でサイズ指定可能
+      width: auto;
+    }
+
+    span {
+      margin-left: 16px;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.3;
+
+      strong {
+        font-size: 18px;
+      }
+    }
+
+  }
+
+}
+
+.header-right {
+
+  ul {
+    display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
+    flex-direction: row; // 子要素の並ぶ向きを左からに設定
+
+    li {
+      &:last-child {
+        color: $color-white;
+        background: $color-blue;
+      }
+
+      a {
+        @include dbg-border(blue, 3);
+        display: flex; // テキスト上下中央寄せのためにflexを使用
+        align-items: center; // テキスト上下中央揃え
+        height: $header-height; // 高さ必須 display: flexでインライン要素でなくなったため指定可能
+        padding: 0 15px;
+      }
+    }
+
+  }
 }
 
 
