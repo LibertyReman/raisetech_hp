@@ -2,7 +2,10 @@
 $dbg: 0;
 $header-height: 70px;
 $color-white: #FFFF;
-$color-blue: #2498B3;
+$color-blue1: #2498B3;
+$color-blue2: #D4F1F8;
+$color-blue3: #E9F8FB;
+
 
 // mixin
 @mixin dbg-border($color: blue, $px: 1, $switch: 1) {
@@ -72,27 +75,68 @@ header {
 }
 
 .header-right {
-
-  ul {
+  .menu {
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
     flex-direction: row; // 子要素の並ぶ向きを左からに設定
 
-    li {
-      &:last-child {
-        color: $color-white;
-        background: $color-blue;
+    > li {
+      position: relative; // sub-menuの表示位置設定用
+      @include dbg-border(blue, 6, 0);
+
+      &:hover .sub-menu {
+        display: block; // sub-menuを表示
       }
 
-      a {
-        @include dbg-border(blue, 3);
+      > a {
+        @include dbg-border(blue, 6, 0);
         display: flex; // テキスト上下中央寄せのためにflexを使用
         align-items: center; // テキスト上下中央揃え
         height: $header-height; // 高さ必須 display: flexでインライン要素でなくなったため指定可能
         padding: 0 15px;
+
+        &:hover {
+          background: $color-blue2;
+        }
+      }
+    }
+
+    > li.special {
+      > a {
+        @include dbg-border(blue, 4, 1);
+        color: $color-white;
+        background: $color-blue1; // 詳細度が高いのでhoverしても$color-blue2にならない
       }
     }
 
   }
+
+  .sub-menu {
+    display: none; // sub-menuを非表示
+    position: absolute; // 親要素に指定したrelativeを基準に表示位置を設定
+    top: $header-height; // absoluteの表示位置調整
+    left: 0; // absoluteの表示位置調整
+
+    > li {
+      background: $color-blue3;
+      @include dbg-border(red, 3, 0);
+
+      > a {
+        @include dbg-border(black, 1, 1);
+        display: flex; // テキスト上下中央寄せのためにflexを使用
+        align-items: center; // テキスト上下中央揃え
+        padding: 15px 60px 15px 15px;
+        white-space: pre; // 自動改行を無効
+        line-height: 1.7; // サイズ調整
+        font-weight: 400;
+
+        &:hover {
+          color: $color-blue1;
+          background: $color-white;
+        }
+      }
+    }
+  }
+
 }
 
 

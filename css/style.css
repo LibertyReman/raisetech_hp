@@ -41,17 +41,47 @@ header {
   font-size: 18px;
 }
 
-.header-right ul {
+.header-right .menu {
   display: flex;
   flex-direction: row;
 }
-.header-right ul li:last-child {
-  color: white;
-  background: #2498B3;
+.header-right .menu > li {
+  position: relative;
 }
-.header-right ul li a {
+.header-right .menu > li:hover .sub-menu {
+  display: block;
+}
+.header-right .menu > li > a {
   display: flex;
   align-items: center;
   height: 70px;
   padding: 0 15px;
+}
+.header-right .menu > li > a:hover {
+  background: #D4F1F8;
+}
+.header-right .menu > li.special > a {
+  color: white;
+  background: #2498B3;
+}
+.header-right .sub-menu {
+  display: none;
+  position: absolute;
+  top: 70px;
+  left: 0;
+}
+.header-right .sub-menu > li {
+  background: #E9F8FB;
+}
+.header-right .sub-menu > li > a {
+  display: flex;
+  align-items: center;
+  padding: 15px 60px 15px 15px;
+  white-space: pre;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.header-right .sub-menu > li > a:hover {
+  color: #2498B3;
+  background: white;
 }
