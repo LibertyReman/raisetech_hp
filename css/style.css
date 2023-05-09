@@ -18,6 +18,12 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 100%;
+  background: white;
 }
 
 .header-left {
@@ -91,6 +97,7 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 70px;
   padding-top: 80px;
   background-image: url(../img/bg-hero1.png), url(../img/bg-hero2.png), url(../img/bg-hero3.png);
   background-position: center -75px, center -75px, center center;
