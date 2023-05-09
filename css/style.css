@@ -1,6 +1,8 @@
 body {
   font-family: "Noto Sans JP", sans-serif;
   font-weight: 700;
+  line-height: 1.7;
+  height: 2000px;
 }
 
 a {
@@ -78,10 +80,57 @@ header {
   align-items: center;
   padding: 15px 60px 15px 15px;
   white-space: pre;
-  line-height: 1.7;
   font-weight: 400;
 }
 .header-right .sub-menu > li > a:hover {
   color: #2498B3;
   background: white;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+  background-image: url(../img/bg-hero1.png), url(../img/bg-hero2.png), url(../img/bg-hero3.png);
+  background-position: center -75px, center -75px, center center;
+  background-size: auto, auto, cover;
+  background-attachment: scroll, scroll, fixed;
+}
+
+.main-area1 {
+  height: 570px;
+}
+
+.main-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 43px 40px 19px 40px;
+  border-radius: 10px;
+  background: white;
+}
+.main-card img {
+  width: 280px;
+  height: auto;
+}
+.main-card p {
+  margin: 1.3em 0 0.5em;
+  text-align: center;
+}
+.main-card .main-btn {
+  padding: 24px 37px;
+  margin: 1.1em 0 0.5em;
+  background: #2498B3;
+  color: white;
+  border-radius: 4px;
+  border: solid 1px #C3C3C3;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.main-area2 {
+  background: #000000;
+  padding: 4em 0;
+  width: 100%;
 }
