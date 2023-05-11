@@ -19,6 +19,7 @@ header {
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
+  z-index: 500;
   top: 0;
   left: 0;
   height: 70px;
@@ -137,7 +138,49 @@ article {
 }
 
 .main-area2 {
+  position: relative;
   background: #000000;
   padding: 4em 0;
   width: 100%;
+  height: 230px;
+  color: white;
+}
+
+.sub-card {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  top: -199px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.sub-card .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 229px;
+  margin: 0 50px;
+}
+.sub-card .card .circle {
+  height: 230px;
+  width: 230px;
+  background: white;
+  border-radius: 50%;
+  border: solid 6px #000000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.sub-card .card .circle i {
+  font-size: 100px;
+  color: #000000;
+}
+.sub-card .card .card-title {
+  margin-top: 4.8px;
+  font-size: 24px;
+}
+.sub-card .card .card-sentence {
+  margin-top: 8px;
 }
