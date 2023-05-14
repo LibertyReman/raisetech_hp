@@ -1,6 +1,7 @@
 // variables
-$dbg: 0;
+$dbg: 1;
 $header-height: 70px;
+$header-height-tab: 50px;
 $color-white: #FFFF;
 $color-black: #000000;
 $color-blue1: #2498B3;
@@ -19,6 +20,24 @@ $color-blue3: #E9F8FB;
 @mixin dbg-bgcolor($color: blue, $switch: 1) {
   @if ($switch == 1 and $dbg == 1) {
     background-color: $color;
+  }
+}
+
+@mixin breakpoint($point) {
+  @if $point == sp {
+    @media (max-width:767px) { // 横幅が767px以下の時
+      @content;
+    }
+  }
+  @if $point == tab {
+    @media (max-width:1200px) { // 横幅が1200px以下の時
+      @content;
+    }
+  }
+  @if $point == tab-l {
+    @media (max-width:1280px) { // 横幅が1280px以下の時
+      @content;
+    }
   }
 }
 
@@ -41,7 +60,7 @@ li {
 
 
 header {
-  @include dbg-border(red, 10, 1);
+  @include dbg-border(red, 10, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
   flex-direction: row; // 子要素の並ぶ向きを左からに設定
   justify-content: space-between; // 子要素の横並びの置く位置を設定
@@ -52,20 +71,35 @@ header {
   height: $header-height; // fixedは子要素の影響を受けないため設定
   width: 100%; // fixedは子要素の影響を受けないため設定
   background: $color-white;
+  @include breakpoint("tab") {
+    height: $header-height-tab;
+  }
+
 }
 
 .header-left {
   margin-left: 21px;
+  @include breakpoint("tab") {
+    margin-left: 0;
+  }
 
   a {
+    @include dbg-border(blue, 4, 1);
     height: $header-height;
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
     flex-direction: row; // 子要素の並ぶ向きを左からに設定
     align-items: center; // flex-direction: rowなので子要素のタテの間隔や置く位置を設定
+    @include breakpoint("tab") {
+      height: $header-height-tab;
+      padding: 10px;
+    }
 
     img {
       height: 33px; // imgタグはインライン要素だが例外でサイズ指定可能
       width: auto;
+      @include breakpoint("tab") {
+        height: 30px; // imgタグはインライン要素だが例外でサイズ指定可能
+      }
     }
 
     span {
@@ -77,6 +111,9 @@ header {
       strong {
         font-size: 18px;
       }
+      @include breakpoint("tab-l") {
+        display: none;
+      }
     }
 
   }
@@ -84,6 +121,21 @@ header {
 }
 
 .header-right {
+  @include dbg-border(blue, 4, 1);
+
+  .hamburger-btn {
+    @include dbg-bgcolor(red, 1);
+    display: none;
+    font-size: 0;
+      @include breakpoint("tab") {
+        display: block;
+        width: 50px;
+        height: 50px;
+        //position: relative;
+      }
+  }
+
+
   .menu {
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
     flex-direction: row; // 子要素の並ぶ向きを左からに設定
@@ -117,6 +169,10 @@ header {
       }
     }
 
+    @include breakpoint("tab") {
+      @include dbg-border(red, 3, 0);
+      display: none;
+    }
   }
 
   .sub-menu {
@@ -159,17 +215,21 @@ article {
   background-position: center -75px, center -75px, center center;
   background-size: auto, auto, cover;
   background-attachment: scroll, scroll, fixed;
+
+  @include breakpoint("tab") {
+    margin-top: $header-height-tab;
+  }
 }
 
 
 .main-area1 {
-  @include dbg-border(pink, 8, 1);
+  @include dbg-border(pink, 8, 0);
   height: 570px;
 }
 
 
 .main-card {
-  @include dbg-border(red, 15, 1);
+  @include dbg-border(red, 15, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
   flex-direction: column; // 子要素の並ぶ向きを左からに設定
   align-items: center; // 子要素の横並びの置く位置を設定
@@ -201,7 +261,7 @@ article {
 }
 
 .main-area2 {
-  @include dbg-border(yellow, 8);
+  @include dbg-border(yellow, 8, 0);
   position: relative;  // sub-cardの表示位置設定用
   background: $color-black;
   padding: 4em 0;
@@ -212,7 +272,7 @@ article {
 
 
 .sub-card {
-  @include dbg-border(blue, 7);
+  @include dbg-border(blue, 7, 0);
   position: absolute;  // 親要素に指定したrelativeを基準に表示位置を設定
   z-index: 100; // headerのz-indexより低い値に設定する
   width: 100%; // absoluteは子要素の影響を受けなくなるため設定
@@ -222,7 +282,7 @@ article {
   justify-content: center; // 子要素の横並びの置く位置を設定
 
   .card {
-    @include dbg-border(red, 4);
+    @include dbg-border(red, 4, 0);
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
     flex-direction: column; // 子要素の並ぶ向きを左からに設定
     align-items: center; // 子要素の横並びの置く位置を設定
@@ -248,7 +308,7 @@ article {
     }
 
     .card-title {
-      @include dbg-border(yellow, 4);
+      @include dbg-border(yellow, 4, 0);
       margin-top: 4.8px;
       font-size: 24px;
     }

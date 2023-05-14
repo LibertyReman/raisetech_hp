@@ -26,19 +26,42 @@ header {
   width: 100%;
   background: white;
 }
+@media (max-width: 1200px) {
+  header {
+    height: 50px;
+  }
+}
 
 .header-left {
   margin-left: 21px;
 }
+@media (max-width: 1200px) {
+  .header-left {
+    margin-left: 0;
+  }
+}
 .header-left a {
+  outline: 4px solid blue;
+  outline-offset: -4px;
   height: 70px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+@media (max-width: 1200px) {
+  .header-left a {
+    height: 50px;
+    padding: 10px;
+  }
+}
 .header-left a img {
   height: 33px;
   width: auto;
+}
+@media (max-width: 1200px) {
+  .header-left a img {
+    height: 30px;
+  }
 }
 .header-left a span {
   margin-left: 16px;
@@ -49,7 +72,28 @@ header {
 .header-left a span strong {
   font-size: 18px;
 }
+@media (max-width: 1280px) {
+  .header-left a span {
+    display: none;
+  }
+}
 
+.header-right {
+  outline: 4px solid blue;
+  outline-offset: -4px;
+}
+.header-right .hamburger-btn {
+  background-color: red;
+  display: none;
+  font-size: 0;
+}
+@media (max-width: 1200px) {
+  .header-right .hamburger-btn {
+    display: block;
+    width: 50px;
+    height: 50px;
+  }
+}
 .header-right .menu {
   display: flex;
   flex-direction: row;
@@ -72,6 +116,11 @@ header {
 .header-right .menu > li.special > a {
   color: white;
   background: #2498B3;
+}
+@media (max-width: 1200px) {
+  .header-right .menu {
+    display: none;
+  }
 }
 .header-right .sub-menu {
   display: none;
@@ -104,6 +153,11 @@ article {
   background-position: center -75px, center -75px, center center;
   background-size: auto, auto, cover;
   background-attachment: scroll, scroll, fixed;
+}
+@media (max-width: 1200px) {
+  article {
+    margin-top: 50px;
+  }
 }
 
 .main-area1 {
