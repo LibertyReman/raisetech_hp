@@ -41,8 +41,6 @@ header {
   }
 }
 .header-left a {
-  outline: 4px solid blue;
-  outline-offset: -4px;
   height: 70px;
   display: flex;
   flex-direction: row;
@@ -78,12 +76,7 @@ header {
   }
 }
 
-.header-right {
-  outline: 4px solid blue;
-  outline-offset: -4px;
-}
 .header-right .hamburger-btn {
-  background-color: red;
   display: none;
   font-size: 0;
 }
@@ -92,6 +85,49 @@ header {
     display: block;
     width: 50px;
     height: 50px;
+    position: relative;
+  }
+  .header-right .hamburger-btn::before, .header-right .hamburger-btn::after {
+    content: "";
+    width: 23px;
+    height: 2px;
+    background: #2498B3;
+    position: absolute;
+    left: calc(50% - 23px/2);
+    display: block;
+    transition: transform 0.2s;
+  }
+  .header-right .hamburger-btn::before {
+    top: 15px;
+  }
+  .header-right .hamburger-btn::after {
+    top: 33px;
+  }
+  .header-right .hamburger-btn > span {
+    width: 23px;
+    height: 2px;
+    font-size: 0;
+    background: #2498B3;
+    position: absolute;
+    left: calc(50% - 23px/2);
+    top: calc(50% - 2px/2);
+    transition: transform 0.2s;
+  }
+  .header-right .hamburger-btn.is-open {
+    background: #2498B3;
+  }
+  .header-right .hamburger-btn.is-open::before {
+    background: white;
+    transform: rotate(45deg);
+    top: 24px;
+  }
+  .header-right .hamburger-btn.is-open::after {
+    background: white;
+    transform: rotate(-45deg);
+    top: 24px;
+  }
+  .header-right .hamburger-btn.is-open > span {
+    background: none;
   }
 }
 .header-right .menu {

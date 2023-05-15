@@ -1,5 +1,9 @@
+@use "sass:math";
+
 // variables
 $dbg: 1;
+$btnWidth: 23px;
+$btnHeight: 2px;
 $header-height: 70px;
 $header-height-tab: 50px;
 $color-white: #FFFF;
@@ -84,7 +88,7 @@ header {
   }
 
   a {
-    @include dbg-border(blue, 4, 1);
+    @include dbg-border(blue, 4, 0);
     height: $header-height;
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
     flex-direction: row; // 子要素の並ぶ向きを左からに設定
@@ -121,18 +125,65 @@ header {
 }
 
 .header-right {
-  @include dbg-border(blue, 4, 1);
+  @include dbg-border(blue, 4, 0);
 
-  .hamburger-btn {
-    @include dbg-bgcolor(red, 1);
+  .hamburger-btn { // ハンバーガーメニュー
+    @include dbg-bgcolor(red, 0);
     display: none;
     font-size: 0;
-      @include breakpoint("tab") {
-        display: block;
-        width: 50px;
-        height: 50px;
-        //position: relative;
+
+    @include breakpoint("tab") {
+      display: block;
+      width: 50px;
+      height: 50px;
+      position: relative;
+
+      &::before,
+      &::after { // 擬似要素：要素の直後にコンテンツを追加
+        content   : ""; // before, after擬似要素で必須
+        width     : $btnWidth;
+        height    : $btnHeight;
+        background: $color-blue1;
+        position  : absolute;
+        left      : calc( 50% - math.div( #{$btnWidth}, 2 ) );
+        display   : block; // 擬似要素はインライン要素のためwidth, height指定できるよう変更
+        transition: transform 0.2s;
       }
+      &::before {
+        top: 15px;
+      }
+      &::after {
+        top: 33px;
+      }
+      > span { // 真ん中の線
+        width          : $btnWidth;
+        height         : $btnHeight;
+        font-size      : 0;
+        background     : $color-blue1;
+        position       : absolute;
+        left           : calc( 50% - math.div( #{$btnWidth}, 2 ) );
+        top            : calc( 50% - math.div( #{$btnHeight}, 2 ) );
+        transition     : transform 0.2s;
+      }
+      &.is-open { // is-openクラスがある時
+        background: $color-blue1;
+
+        &::before {
+          background: $color-white;
+          transform: rotate( 45deg );
+          top      : 24px;
+        }
+        &::after {
+          background: $color-white;
+          transform: rotate( -45deg );
+          top      : 24px;
+        }
+        > span {
+          background: none;
+        }
+      }
+    }
+
   }
 
 
