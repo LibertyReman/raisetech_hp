@@ -16,7 +16,7 @@ const sassBuild = (done) => {
 
 const watchFiles = () => {
   watch('./scss/*.scss', sassBuild);
-  watch(['./css/*.css', './*.html'], bsReload);
+  watch(['./css/*.css', './js/*.js', './*.html'], bsReload);
 };
 
 const startBrowserSync = () => {

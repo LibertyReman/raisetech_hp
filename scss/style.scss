@@ -1,7 +1,7 @@
 @use "sass:math";
 
 // variables
-$dbg: 1;
+$dbg: 0;
 $btnWidth: 23px;
 $btnHeight: 2px;
 $header-height: 70px;
@@ -11,6 +11,7 @@ $color-black: #000000;
 $color-blue1: #2498B3;
 $color-blue2: #D4F1F8;
 $color-blue3: #E9F8FB;
+$color-hover: #F3FAFB;
 
 
 // mixin
@@ -68,7 +69,7 @@ header {
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
   flex-direction: row; // 子要素の並ぶ向きを左からに設定
   justify-content: space-between; // 子要素の横並びの置く位置を設定
-  position: fixed; // ヘッダーを固定
+  position: fixed; // ヘッダーを固定  .menu.is-open {position: absolute;} の基準位置
   z-index: 500; // 1番上に表示するために他のz-indexより大きい値に設定
   top: 0; // ヘッダー固定位置
   left: 0; // ヘッダー固定位置
@@ -125,7 +126,7 @@ header {
 }
 
 .header-right {
-  @include dbg-border(blue, 4, 0);
+  @include dbg-border(red, 4, 0);
 
   .hamburger-btn { // ハンバーガーメニュー
     @include dbg-bgcolor(red, 0);
@@ -158,7 +159,7 @@ header {
       > span { // 真ん中の線
         width          : $btnWidth;
         height         : $btnHeight;
-        font-size      : 0;
+        font-size      : 0; //  spanで指定した文字を非表示
         background     : $color-blue1;
         position       : absolute;
         left           : calc( 50% - math.div( #{$btnWidth}, 2 ) );
@@ -220,15 +221,65 @@ header {
       }
     }
 
-    @include breakpoint("tab") {
-      @include dbg-border(red, 3, 0);
+    @include breakpoint("tab") { // .menu
       display: none;
+
+      &.is-open { // is-openクラスがある時
+        @include dbg-border(blue, 4, 1);
+        position: absolute; // 基準位置は 親要素header position: fixed
+        left: 0; // rightと組み合わせて横いっぱいに広げる設定
+        right: 0; // leftと組み合わせて幅いっぱいに広げる設定
+        display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
+        flex-direction: column; // 子要素の並ぶ向きを左からに設定
+        background: $color-white;
+
+        > li {
+          position  : relative; // a::before, afterの基準位置に設定
+
+          > a {
+            @include dbg-border(red, 2, 1);
+            height: auto;
+            padding: 10px;
+
+            &:not(.no-sub-menu)::before,
+            &:not(.no-sub-menu)::after { // ＋のヨコ線
+              content   : ""; // before, after擬似要素で必須
+              display   : block; // 擬似要素はインライン要素のためwidth, height指定できるよう変更
+              width     : $btnWidth;
+              height    : $btnHeight;
+              background: $color-black;
+              position  : absolute;
+              right     : 13px;
+              transition: transform 0.2s;
+            }
+            &:not(.no-sub-menu)::after { // ＋のタテ線
+              transform: rotate(90deg);
+            }
+
+            &:hover {
+              background: $color-hover;
+
+              &:not(.no-sub-menu)::after { // ＋のタテ線
+                display: none;
+              }
+            }
+
+          }
+        }
+
+        > li.special {
+          > a {
+            display: none;
+          }
+        }
+
+      }
     }
   }
 
   .sub-menu {
     display: none; // sub-menuを非表示
-    position: absolute; // 親要素に指定したrelativeを基準に表示位置を設定
+    position: absolute; // 親要素(.menu > li) に指定したrelativeを基準に表示位置を設定
     top: $header-height; // absoluteの表示位置調整
     left: 0; // absoluteの表示位置調整
 
@@ -250,6 +301,28 @@ header {
         }
       }
     }
+
+    @include breakpoint("tab") { // .sub-menu
+      display: none; // sub-menuを非表示
+      position: static; // HTMLのデフォルト配置モードに設定 menu.liの高さを動的にする
+
+      > li {
+        background: $color-white;
+        @include dbg-border(red, 3, 1);
+
+        > a {
+          @include dbg-bgcolor(yellow, 1);
+          padding: 10px 10px 10px 25px;
+
+          &:hover {
+            color: $color-black;
+            background: $color-hover;
+          }
+        }
+      }
+
+    }
+
   }
 
 }
