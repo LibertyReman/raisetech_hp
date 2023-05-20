@@ -180,16 +180,28 @@ header {
     background: #000000;
     position: absolute;
     right: 13px;
-    transition: transform 0.2s;
   }
   .header-right .menu.is-open > li > a:not(.no-sub-menu)::after {
     transform: rotate(90deg);
   }
-  .header-right .menu.is-open > li > a:hover {
+  .header-right .menu.is-open > li:hover > a {
+    position: relative;
+  }
+  .header-right .menu.is-open > li:hover > a:hover {
     background: #F3FAFB;
   }
-  .header-right .menu.is-open > li > a:hover:not(.no-sub-menu)::after {
-    display: none;
+  .header-right .menu.is-open > li:hover > a:not(.no-sub-menu)::before {
+    z-index: 100;
+  }
+  .header-right .menu.is-open > li:hover > a:not(.no-sub-menu)::after {
+    transform: rotate(0deg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: auto;
+    background: #F7F7F7;
   }
   .header-right .menu.is-open > li.special > a {
     display: none;
@@ -291,7 +303,6 @@ article {
 
 .sub-card {
   position: absolute;
-  z-index: 100;
   width: 100%;
   top: -199px;
   display: flex;

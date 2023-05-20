@@ -12,6 +12,7 @@ $color-blue1: #2498B3;
 $color-blue2: #D4F1F8;
 $color-blue3: #E9F8FB;
 $color-hover: #F3FAFB;
+$color-box:   #F7F7F7;
 
 
 // mixin
@@ -250,20 +251,36 @@ header {
               background: $color-black;
               position  : absolute;
               right     : 13px;
-              transition: transform 0.2s;
             }
             &:not(.no-sub-menu)::after { // ＋のタテ線
               transform: rotate(90deg);
             }
+          }
 
-            &:hover {
-              background: $color-hover;
+          &:hover {
+            @include dbg-border(blue, 2, 0);
 
-              &:not(.no-sub-menu)::after { // ＋のタテ線
-                display: none;
+            > a {
+              position: relative; // a::before, afterの基準位置設定はaタグ自身にする
+
+              &:hover {
+                background: $color-hover;
+              }
+
+              &:not(.no-sub-menu)::before { // ＋のヨコ線
+                z-index: 100; // タテの線より上に表示する
+              }
+              &:not(.no-sub-menu)::after { // liタグホバー時は＋のタテ線は無くしてボックスを表示
+                transform: rotate(0deg); // width heightの方向を治すために回転を戻す
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 50px;
+                height: auto;
+                background: $color-box;
               }
             }
-
           }
         }
 
@@ -398,7 +415,6 @@ article {
 .sub-card {
   @include dbg-border(blue, 7, 0);
   position: absolute;  // 親要素に指定したrelativeを基準に表示位置を設定
-  z-index: 100; // headerのz-indexより低い値に設定する
   width: 100%; // absoluteは子要素の影響を受けなくなるため設定
   top: -199px; // absoluteは子要素の影響を受けなくなるため設定
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
