@@ -1,15 +1,18 @@
 'use strict'
 
 let { src, watch, dest, parallel } = require('gulp');
-let sass = require('gulp-dart-sass');       // DartSass build
-let plumber = require('gulp-plumber');      // gulpタスクでエラー発生時に強制終了するのを防ぐ
-let browserSync = require('browser-sync');  // ローカルサーバーを立ててファイル監視し変更があったら自動的にブラウザ更新する
+let dartSass = require('gulp-dart-sass');       // DartSass build
+let sourcemaps = require('gulp-sourcemaps');    // ソースマップ出力
+let plumber = require('gulp-plumber');          // gulpタスクでエラー発生時に強制終了するのを防ぐ
+let browserSync = require('browser-sync');      // ローカルサーバーを立ててファイル監視し変更があったら自動的にブラウザ更新する
 
 
 const sassBuild = (done) => {
   src('./scss/*.scss')
     .pipe(plumber())
-    .pipe(sass({outputStyle: 'expanded'}))
+    .pipe(sourcemaps.init())
+    .pipe(dartSass({outputStyle: 'expanded'}))
+    .pipe(sourcemaps.write('./')) // dest()で指定したフォルダにソースマップを出力
     .pipe(dest('./css'));
   done();
 };
