@@ -262,13 +262,20 @@ article {
 }
 @media (max-width: 767px) {
   article {
-    height: 300px;
-    padding-bottom: 320px;
+    background-position: center -30px, center -25px, center -25px;
+    padding-top: 163px;
+    background-size: 800px, 800px, cover;
   }
 }
 
 .main-area1 {
   height: 570px;
+}
+@media (max-width: 767px) {
+  .main-area1 {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .main-card {
@@ -279,13 +286,30 @@ article {
   border-radius: 10px;
   background: white;
 }
+@media (max-width: 767px) {
+  .main-card {
+    padding: 9px 0 13px;
+    border-radius: 0;
+  }
+}
 .main-card img {
   width: 280px;
   height: auto;
 }
+@media (max-width: 767px) {
+  .main-card img {
+    display: none;
+  }
+}
 .main-card p {
   margin: 1.3em 0 0.5em;
   text-align: center;
+}
+@media (max-width: 767px) {
+  .main-card p {
+    margin: 0.5em 0;
+    font-size: 13px;
+  }
 }
 .main-card .main-btn {
   padding: 24px 37px;
@@ -296,6 +320,13 @@ article {
   border: solid 1px #C3C3C3;
   font-size: 18px;
   line-height: 1;
+}
+@media (max-width: 767px) {
+  .main-card .main-btn {
+    margin: 6.5px 0;
+    padding: 12px 18px;
+    font-size: 16px;
+  }
 }
 
 .main-area2 {

@@ -350,7 +350,7 @@ header {
 
 
 article {
-  @include dbg-border(blue, 10, 0);
+  @include dbg-border(blue, 7, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
   flex-direction: column; // 子要素の並ぶ向きを上から下に設定
   align-items: center; // 子要素の横並びの置く位置を設定
@@ -366,21 +366,26 @@ article {
   }
 
   @include breakpoint("sp") {
-    height: 300px;
-    padding-bottom: 320px;
+    background-position: center -30px, center -25px, center -25px;
+    padding-top: 163px;
+    background-size: 800px, 800px, cover;
   }
-
 }
 
 
 .main-area1 {
-  @include dbg-border(pink, 8, 0);
+  @include dbg-border(red, 8, 0);
   height: 570px;
+
+  @include breakpoint("sp") {
+    width: 100%;
+    height: auto;
+  }
 }
 
 
 .main-card {
-  @include dbg-border(red, 15, 0);
+  @include dbg-border(red, 5, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
   flex-direction: column; // 子要素の並ぶ向きを上から下に設定
   align-items: center; // 子要素の横並びの置く位置を設定
@@ -388,14 +393,28 @@ article {
   border-radius: 10px;
   background: $color-white;
 
+  @include breakpoint("sp") {
+    padding: 9px 0 13px;
+    border-radius: 0;
+  }
+
   img {
     width: 280px;
     height: auto;
+
+    @include breakpoint("sp") {
+      display: none;
+    }
   }
 
   p {
     margin: 1.3em 0 0.5em;
     text-align: center;
+
+    @include breakpoint("sp") {
+      margin: 0.5em 0;
+      font-size: 13px;
+    }
   }
 
   .main-btn {
@@ -407,12 +426,18 @@ article {
     border: solid 1px #C3C3C3;
     font-size: 18px;
     line-height: 1.0;
+
+    @include breakpoint("sp") {
+      margin: 6.5px 0;
+      padding: 12px 18px;
+      font-size: 16px;
+    }
   }
 
 }
 
 .main-area2 {
-  @include dbg-border(yellow, 8, 0);
+  @include dbg-border(yellow, 5, 0);
   position: relative;  // sub-cardの表示位置設定用
   background: $color-black;
   padding: 4em 0;
@@ -440,7 +465,7 @@ article {
   }
 
   .card {
-    @include dbg-border(red, 4, 1);
+    @include dbg-border(red, 4, 0);
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
     flex-direction: column; // 子要素の並ぶ向きを上から下に設定
     align-items: center; // 子要素の横並びの置く位置を設定
