@@ -29,18 +29,22 @@ $color-box:   #F7F7F7;
   }
 }
 
-@mixin breakpoint($point) {
-  @if $point == sp {
+@mixin breakpoint($device) {
+  @if ($device != "sp" and $device != "tab" and $device != "tab-l" ) {
+    @warn "Invalid Argument";
+  }
+
+  @if $device == sp {
     @media (max-width:767px) { // 横幅が767px以下の時
       @content;
     }
   }
-  @if $point == tab {
+  @if $device == tab {
     @media (max-width:1200px) { // 横幅が1200px以下の時
       @content;
     }
   }
-  @if $point == tab-l {
+  @if $device == tab-l {
     @media (max-width:1280px) { // 横幅が1280px以下の時
       @content;
     }
@@ -68,7 +72,7 @@ li {
 header {
   @include dbg-border(red, 10, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-  flex-direction: row; // 子要素の並ぶ向きを左からに設定
+  flex-direction: row; // 子要素の並ぶ向きを左から右に設定
   justify-content: space-between; // 子要素の横並びの置く位置を設定
   position: fixed; // ヘッダーを固定  .menu.is-open {position: absolute;} の基準位置
   z-index: 500; // 1番上に表示するために他のz-indexより大きい値に設定
@@ -93,7 +97,7 @@ header {
     @include dbg-border(blue, 4, 0);
     height: $header-height;
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-    flex-direction: row; // 子要素の並ぶ向きを左からに設定
+    flex-direction: row; // 子要素の並ぶ向きを左から右に設定
     align-items: center; // flex-direction: rowなので子要素のタテの間隔や置く位置を設定
     @include breakpoint("tab") {
       height: $header-height-tab;
@@ -160,7 +164,7 @@ header {
       > span { // 真ん中の線
         width          : $btnWidth;
         height         : $btnHeight;
-        font-size      : 0; //  spanで指定した文字を非表示
+        font-size      : 0; // spanで指定した文字を非表示
         background     : $color-blue1;
         position       : absolute;
         left           : calc( 50% - math.div( $btnWidth, 2 ) );
@@ -191,7 +195,7 @@ header {
 
   .menu {
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-    flex-direction: row; // 子要素の並ぶ向きを左からに設定
+    flex-direction: row; // 子要素の並ぶ向きを左から右に設定
 
     > li {
       position: relative; // sub-menuの表示位置設定用
@@ -231,7 +235,7 @@ header {
         left: 0; // rightと組み合わせて横いっぱいに広げる設定
         right: 0; // leftと組み合わせて幅いっぱいに広げる設定
         display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-        flex-direction: column; // 子要素の並ぶ向きを左からに設定
+        flex-direction: column; // 子要素の並ぶ向きを上から下に設定
         background: $color-white;
 
         > li {
@@ -348,7 +352,7 @@ header {
 article {
   @include dbg-border(blue, 10, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-  flex-direction: column; // 子要素の並ぶ向きを左からに設定
+  flex-direction: column; // 子要素の並ぶ向きを上から下に設定
   align-items: center; // 子要素の横並びの置く位置を設定
   margin-top: $header-height; // 外側の余白
   padding-top: 80px; // 内側の余白
@@ -360,6 +364,12 @@ article {
   @include breakpoint("tab") {
     margin-top: $header-height-tab;
   }
+
+  @include breakpoint("sp") {
+    height: 300px;
+    padding-bottom: 320px;
+  }
+
 }
 
 
@@ -372,7 +382,7 @@ article {
 .main-card {
   @include dbg-border(red, 15, 0);
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-  flex-direction: column; // 子要素の並ぶ向きを左からに設定
+  flex-direction: column; // 子要素の並ぶ向きを上から下に設定
   align-items: center; // 子要素の横並びの置く位置を設定
   padding: 43px 40px 19px 40px;
   border-radius: 10px;
@@ -407,8 +417,11 @@ article {
   background: $color-black;
   padding: 4em 0;
   width: 100%;
-  height: 230px;;
+  height: 230px;
   color: $color-white;
+  @include breakpoint("sp") {
+    height: auto;
+  }
 }
 
 
@@ -418,16 +431,26 @@ article {
   width: 100%; // absoluteは子要素の影響を受けなくなるため設定
   top: -199px; // absoluteは子要素の影響を受けなくなるため設定
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-  flex-direction: row; // 子要素の並ぶ向きを左からに設定
+  flex-direction: row; // 子要素の並ぶ向きを左から右に設定
   justify-content: center; // 子要素の横並びの置く位置を設定
+  @include breakpoint("sp") {
+    position: static;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .card {
-    @include dbg-border(red, 4, 0);
+    @include dbg-border(red, 4, 1);
     display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-    flex-direction: column; // 子要素の並ぶ向きを左からに設定
+    flex-direction: column; // 子要素の並ぶ向きを上から下に設定
     align-items: center; // 子要素の横並びの置く位置を設定
     width: 229px;
     margin: 0 50px;
+    @include breakpoint("sp") {
+      width: auto;
+      margin: 0 2%;
+      margin-bottom: 2.5em;
+    }
 
     .circle {
       height: 230px;
@@ -437,7 +460,7 @@ article {
       border: solid 6px $color-black;
 
       display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
-      flex-direction: row; // 子要素の並ぶ向きを左からに設定
+      flex-direction: row; // 子要素の並ぶ向きを左から右に設定
       justify-content: center; // 子要素の横並びの置く位置を設定
       align-items: center; // 子要素の縦並びの置く位置を設定
 
