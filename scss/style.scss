@@ -30,12 +30,17 @@ $color-box:   #F7F7F7;
 }
 
 @mixin breakpoint($device) {
-  @if ($device != "sp" and $device != "tab" and $device != "tab-l" ) {
+  @if ($device != "sp" and $device != "tab-s" and $device != "tab" and $device != "tab-l" ) {
     @warn "Invalid Argument";
   }
 
   @if $device == sp {
     @media (max-width:767px) { // 横幅が767px以下の時
+      @content;
+    }
+  }
+  @if $device == tab-s {
+    @media (max-width:1078px) { // 横幅が1078px以下の時
       @content;
     }
   }
@@ -153,7 +158,7 @@ header {
         position  : absolute;
         left      : calc( 50% - math.div( $btnWidth, 2 ) );
         display   : block; // 擬似要素はインライン要素のためwidth, height指定できるよう変更
-        transition: transform 0.2s;
+        transition: transform 0.4s;
       }
       &::before {
         top: 15px;
@@ -176,12 +181,12 @@ header {
 
         &::before {
           background: $color-white;
-          transform: rotate( 45deg );
+          transform: rotate( 135deg );
           top      : 24px;
         }
         &::after {
           background: $color-white;
-          transform: rotate( -45deg );
+          transform: rotate( -135deg );
           top      : 24px;
         }
         > span {
@@ -242,7 +247,7 @@ header {
           position  : relative; // a::before, afterの基準位置に設定
 
           > a {
-            @include dbg-border(red, 2, 1);
+            @include dbg-border(red, 2, 0);
             height: auto;
             padding: 10px;
 
@@ -426,6 +431,7 @@ article {
     border: solid 1px #C3C3C3;
     font-size: 18px;
     line-height: 1.0;
+    transition: .3s; // レスポンシブでアニメーション
 
     @include breakpoint("sp") {
       margin: 6.5px 0;
@@ -458,6 +464,10 @@ article {
   display: flex; // flexの使用を設定 直下の子要素は全てブロック要素に変更される
   flex-direction: row; // 子要素の並ぶ向きを左から右に設定
   justify-content: center; // 子要素の横並びの置く位置を設定
+
+  @include breakpoint("tab-s") {
+    max-width:1078px;
+  }
   @include breakpoint("sp") {
     position: static;
     flex-direction: column;
@@ -471,6 +481,11 @@ article {
     align-items: center; // 子要素の横並びの置く位置を設定
     width: 229px;
     margin: 0 50px;
+
+    @include breakpoint("tab-s") {
+      width: 29.33%;
+      margin: 0 1.7%;
+    }
     @include breakpoint("sp") {
       width: auto;
       margin: 0 2%;

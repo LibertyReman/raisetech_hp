@@ -95,7 +95,7 @@ header {
     position: absolute;
     left: calc(50% - 11.5px);
     display: block;
-    transition: transform 0.2s;
+    transition: transform 0.4s;
   }
   .header-right .hamburger-btn::before {
     top: 15px;
@@ -118,12 +118,12 @@ header {
   }
   .header-right .hamburger-btn.is-open::before {
     background: white;
-    transform: rotate(45deg);
+    transform: rotate(135deg);
     top: 24px;
   }
   .header-right .hamburger-btn.is-open::after {
     background: white;
-    transform: rotate(-45deg);
+    transform: rotate(-135deg);
     top: 24px;
   }
   .header-right .hamburger-btn.is-open > span {
@@ -320,6 +320,7 @@ article {
   border: solid 1px #C3C3C3;
   font-size: 18px;
   line-height: 1;
+  transition: 0.3s;
 }
 @media (max-width: 767px) {
   .main-card .main-btn {
@@ -351,6 +352,11 @@ article {
   flex-direction: row;
   justify-content: center;
 }
+@media (max-width: 1078px) {
+  .sub-card {
+    max-width: 1078px;
+  }
+}
 @media (max-width: 767px) {
   .sub-card {
     position: static;
@@ -364,6 +370,12 @@ article {
   align-items: center;
   width: 229px;
   margin: 0 50px;
+}
+@media (max-width: 1078px) {
+  .sub-card .card {
+    width: 29.33%;
+    margin: 0 1.7%;
+  }
 }
 @media (max-width: 767px) {
   .sub-card .card {
