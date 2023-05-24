@@ -1,6 +1,12 @@
 jQuery( function( $ ) {
 	$( ".js-hamburger" ).on( "click", function() {
-		$( this ).toggleClass( "is-open" );
-		$( ".menu" ).toggleClass( "is-open" );
-	} );
+        if ($(this).hasClass("is-open")) {
+            $( this ).removeClass( "is-open" );
+            $( ".menu" ).removeClass( "is-open" );
+        } else {
+            $( this ).addClass( "is-open" );
+            $( ".menu" ).addClass( "is-open" );
+            $( ".menu > li" ).hide().slideDown('fast');
+        }
+    } );
 } );
